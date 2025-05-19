@@ -319,7 +319,7 @@ class LeedsBinsDataSensor(CoordinatorEntity, SensorEntity):
 
     def get_closest_date(self, data):
         _LOGGER.debug("Getting next bin day with data - %s", data)
-        today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+        today = datetime.today()
         closest_key = None
         smallest_difference = None
 
@@ -334,10 +334,12 @@ class LeedsBinsDataSensor(CoordinatorEntity, SensorEntity):
                 continue  # Skip if the date format is incorrect
 
             # Calculate the difference between the current date and the parsed date
-            difference = (date - today).days
+            difference = (date - today).total_seconds() / 3600 / 24
+
+            _LOGGER.debug("Bin %s is %f difference", key, difference)
 
             # Update the closest date if it's sooner and in the future
-            if difference >= 0 and (smallest_difference is None or difference < smallest_difference):
+            if difference >= -0.5 and (smallest_difference is None or difference < smallest_difference):
                 smallest_difference = difference
                 closest_key = key
         _LOGGER.debug("Next bin is - %s", closest_key)
