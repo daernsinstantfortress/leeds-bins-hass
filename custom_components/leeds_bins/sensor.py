@@ -133,9 +133,6 @@ class HouseholdBinCoordinator(DataUpdateCoordinator):
         self.updated_at = data["updated_at"]
         if self.updated_at is not None:
             self.data = data
-        if self.update_interval == timedelta(minutes=60):
-            self.update_interval = timedelta(minutes=720)
-            _LOGGER.debug("Changed update interval to 720 minutes")
         if self.update_interval == timedelta(minutes=5):
             self.update_interval = timedelta(minutes=60)
             _LOGGER.debug("Changed update interval to 60 minutes")
