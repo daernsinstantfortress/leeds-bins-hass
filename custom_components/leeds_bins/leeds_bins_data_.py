@@ -66,7 +66,7 @@ def find_bin_days(house_id, updated_at, old_data, cache_csv_file):
             updated_at, "%a, %d %b %Y %H:%M:%S %Z")
         # Compare last modified date with updated_at
         _LOGGER.debug("Last modified - %s", last_modified)
-        _LOGGER.debug("Updated at - %s", last_modified)
+        _LOGGER.debug("Updated at - %s", updated_at)
         if last_modified <= updated_at:
             _LOGGER.debug("CSV file not updated since last check")
             return old_data
